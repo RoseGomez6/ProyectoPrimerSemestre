@@ -1,0 +1,56 @@
+h1 {
+  color: antiquewhite;
+  text-align: left;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  display: inline-block;
+}
+
+header {
+  background-color: rgb(100, 19, 19);
+  padding: 30px;
+}
+
+.linkarticulo {
+  color: antiquewhite;
+  padding: 10px;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.tarjeta {
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.tarjeta img {
+  width: 200px;
+  height: auto;
+}
+
+nav {
+  text-align: right;
+  display: inline-block;
+}
+
+.tarjeta img {
+  width: 30%;
+  border-radius: 10px;
+  display: block;
+}
+
+.card {
+  color: rgb(100, 19, 19);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  display:inline-flex;
+  gap: 100px;
+  padding: 20px;
+}
+
+.btn {
+  color: rgb(100, 19, 19);
+  padding: 10px;
+  text-decoration: none;
+  margin-right: 20px;
+}
+

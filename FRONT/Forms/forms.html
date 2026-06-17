@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel Administrador</title>
+    <link rel="stylesheet" href="forms.css" />
+  </head>
+  <body>
+    <h1>Formulario Arteguay</h1>
+
+    <form id="formArticulo">
+      <input type="text" id="titulo" placeholder="Título" required />
+
+      <input type="text" id="autor" placeholder="Autor" required />
+
+      <input type="text" placeholder="URL de la imagen" />
+
+      <input type="date" id="fecha" required />
+
+      <textarea
+        id="contenido"
+        placeholder="Contenido del artículo"
+        required
+      ></textarea>
+
+      <button type="submit">Publicar artículo</button>
+      <button type="submit">Editar</button>
+    </form>
+
+
+
+    <p id="mensaje"></p>
+
+  <script src="forms.js"></script> 
+  </body>
+</html>
