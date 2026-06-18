@@ -43,7 +43,7 @@ nav {
 .card {
   color: rgb(100, 19, 19);
   font-family: Georgia, "Times New Roman", Times, serif;
-  display:inline-flex;
+  display: flex;
   gap: 100px;
   padding: 20px;
 }
@@ -56,19 +56,18 @@ nav {
 }
 
 footer {
-    text-align: center;
+  text-align: center;
 }
 
 footer img {
-    width: 100vw;
-    height: auto;
+  width: 100vw;
+  height: auto;
 }
 
 #grid {
   width: 10vw;
   padding: 5px;
   margin: 5px;
-  display: inline-block;
 }
 
 main {
@@ -76,49 +75,49 @@ main {
 }
 
 .card-img-top {
-    width: 30vw;
-    height: auto;
-    padding:80px;
-    margin: 30px;
-    display: inline-block;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    width: 300px;
-    background-color: rgba(182, 56, 56, 0.116);
-    border-radius: 15px;
+  width: 30vw;
+  height: auto;
+  padding: 80px;
+  margin: 30px;
+  display: inline-flex;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  background-color: rgba(182, 56, 56, 0.116);
+  border-radius: 15px;
 }
 
 .card-img-down {
-    width: 30vw;
-    height: auto;
-    padding:80px;
-    margin: 20px;
-    display: inline-block;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    width: 300px;
-    background-color:  rgba(182, 56, 56, 0.116);
-    border-radius: 15px;
+  width: 30vw;
+  height: auto;
+  padding: 80px;
+  margin: 20px;
+  display: inline-flex;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  background-color: rgba(182, 56, 56, 0.116);
+  border-radius: 15px;
 }
 
 .card-img-right {
-    width: 30vw;
-    height: auto;
-    padding:80px;
-    margin: 30px;
-    display: inline-block;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    width: 300px;
-    background-color:  rgba(182, 56, 56, 0.116);
-    border-radius: 15px;
+  width: 30vw;
+  height: auto;
+  padding: 80px;
+  margin: 30px;
+  display: inline-flex;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  background-color: rgba(182, 56, 56, 0.116);
+  border-radius: 15px;
 }
 
 .card-img-left {
-    width: 30vw;
-    height: auto;
-    padding:80px;
-    margin: 20px;
-    display: inline-block;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    width: 300px;
-    background-color: rgba(182, 56, 56, 0.116);
-    border-radius: 15px;
+  width: 30vw;
+  height: auto;
+  padding: 80px;
+  margin: 20px;
+  display: inline-flex;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 300px;
+  background-color: rgba(182, 56, 56, 0.116);
+  border-radius: 15px;
 }
