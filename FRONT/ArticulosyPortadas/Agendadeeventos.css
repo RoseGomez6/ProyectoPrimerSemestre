@@ -1,0 +1,70 @@
+:root {
+  --crema: #FAF3E8;
+  --vino: #641313;
+  --vino-oscuro: #3D0C0C;
+  --dorado: #C9A227;
+  --texto: #2A2A2A;
+
+  --fuente-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fuente-cuerpo: Georgia, "Times New Roman", Times, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--crema);
+  color: var(--texto);
+  font-family: var(--fuente-cuerpo);
+}
+
+/* ── HEADER ────────────────────────────────────────────── */
+
+header {
+  background-color: var(--vino);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 20px;
+  border-bottom: 3px solid var(--dorado);
+}
+
+h2 {
+  color: var(--crema);
+  font-family: var(--fuente-display);
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin: 0;
+  background-color: transparent;
+}
+
+.btn {
+  color: var(--crema);
+  text-decoration: none;
+  font-family: var(--fuente-display);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  padding: 8px 18px;
+  border: 1px solid var(--dorado);
+  border-radius: 2px;
+  background-color: transparent;
+  margin-right: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--dorado);
+  color: var(--vino-oscuro);
+}
+
+.evento {
+    text-align: center;
+    font-family: var(--fuente-display);
+    color: #641313;
+    letter-spacing: 1px;
+    padding: 10px;
+}
