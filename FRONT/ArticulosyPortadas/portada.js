@@ -1,3 +1,5 @@
+// ── CLIMA ────────────────────────────────────────────────
+
 // Coordenadas de Montevideo
 const LAT = -34.9;
 const LON = -56.2;
@@ -18,9 +20,9 @@ function descripcionClima(code) {
   return "Condición desconocida";
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const elCiudad   = document.getElementById("clima-ciudad");
-  const elTemp     = document.getElementById("clima-temp");
+async function cargarClima() {
+  const elCiudad    = document.getElementById("clima-ciudad");
+  const elTemp      = document.getElementById("clima-temp");
   const elCondicion = document.getElementById("clima-condicion");
 
   try {
@@ -38,82 +40,88 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error al obtener el clima:", error);
     elCiudad.textContent = "No se pudo cargar el clima."; // mensaje si no hay conexión
   }
-});
+}
+
+// ── ARTÍCULOS ────────────────────────────────────────────
 
 const API_URL = "http://localhost:3000";
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarArticulos();
-
-  // Actualiza automáticamente cada 3 segundos
-  setInterval(cargarArticulos, 3000);
-});
-
 async function cargarArticulos() {
-  try {
+  const contenedor = document.querySelector(".destacados");
 
+  try {
     const respuesta = await fetch(`${API_URL}/articulos`);
     const articulos = await respuesta.json();
 
-    // Los más nuevos primero
-    articulos.reverse();
+    if (!respuesta.ok) {
+      contenedor.innerHTML = "<p>No se pudieron cargar los artículos.</p>";
+      return;
+    }
 
-    const contenedor = document.getElementById("lista-articulos");
-
-    // Limpia el contenedor antes de volver a dibujar
+    // Limpiamos el contenedor antes de volver a dibujar
+    // (para que el auto-refresco no duplique tarjetas)
     contenedor.innerHTML = "";
 
-    articulos.forEach((articulo, index) => {
-
-      const tarjeta = document.createElement("a");
-
-      tarjeta.href = `../articulo-proyecto/articulo.html?id=${articulo.id}`;
-
-      tarjeta.classList.add("article-card");
-      tarjeta.classList.add("article-link");
-
-      // Saca etiquetas HTML del contenido y lo acorta
-      const descripcionLimpia =
-        articulo.descripcion1
-          ? articulo.descripcion1
-              .replace(/<[^>]*>/g, "")
-              .substring(0, 150)
-          : "";
-
-      tarjeta.innerHTML = `
-        <a class="article-link"
-           href="../articulo-proyecto/articulo.html?id=${articulo.id}">
-
-          <span class="article-number">
-            ${String(index + 1).padStart(2, "0")}
-          </span>
-
-          <div class="article-category">
-            ${articulo.categoria || ""}
-          </div>
-
-          <h3 class="article-title">
-            ${articulo.titulo || ""}
-            <br>
-            <em>${articulo.subtitulo || ""}</em>
-          </h3>
-
-          <div class="article-rule"></div>
-
-          <p class="article-desc">
-            ${descripcionLimpia}...
-          </p>
-
-        </a>
-      `;
-
+    articulos.forEach((articulo) => {
+      const tarjeta = crearTarjeta(articulo);
       contenedor.appendChild(tarjeta);
-
     });
 
   } catch (error) {
-    console.error("Error al cargar artículos:", error);
+    console.error("Error de red:", error);
+    contenedor.innerHTML = "<p>No se pudo conectar con el servidor.</p>";
   }
 }
 
+function crearTarjeta(articulo) {
+  // Creamos el <article class="card"> con dos bloques internos:
+  // .card-img (la imagen, a la izquierda) y .card-info (el texto, a la derecha)
+  const article = document.createElement("article");
+  article.classList.add("card");
 
+  const bloqueImg = document.createElement("div");
+  bloqueImg.classList.add("card-img");
+
+  const img = document.createElement("img");
+  img.src = articulo.imagen || "img/default.jpg"; // si no tiene imagen, usamos una por defecto
+  img.alt = articulo.titulo;
+  bloqueImg.appendChild(img);
+
+  const bloqueInfo = document.createElement("div");
+  bloqueInfo.classList.add("card-info");
+
+  const categoria = document.createElement("p");
+  categoria.classList.add("card-categoria");
+  categoria.textContent = articulo.categoria;
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = articulo.titulo;
+
+  const autor = document.createElement("p");
+  autor.classList.add("card-autor");
+  autor.textContent = articulo.autor;
+
+  bloqueInfo.appendChild(categoria);
+  bloqueInfo.appendChild(titulo);
+  bloqueInfo.appendChild(autor);
+
+  article.appendChild(bloqueImg);
+  article.appendChild(bloqueInfo);
+
+  // Al hacer click en la tarjeta, navegamos al artículo completo
+  article.addEventListener("click", () => {
+    window.location.href = `articulo.html?id=${articulo.id}`;
+  });
+
+  return article;
+}
+
+// ── INICIO ───────────────────────────────────────────────
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarClima();
+  cargarArticulos();
+
+  // Actualiza la lista de artículos automáticamente cada 3 segundos
+  setInterval(cargarArticulos, 3000);
+});

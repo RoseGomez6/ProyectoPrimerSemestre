@@ -1,34 +1,140 @@
-h1 {
-  color: antiquewhite;
-  text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: xx-large;
-  background-color: rgb(100, 19, 19);
-  padding: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+
+:root {
+  --crema: #FAF3E8;
+  --vino: #641313;
+  --vino-oscuro: #3D0C0C;
+  --dorado: #C9A227;
+  --texto: #2A2A2A;
+
+  --fuente-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fuente-cuerpo: Georgia, "Times New Roman", Times, serif;
 }
 
-span {
-  color: rgb(100, 19, 19);
-  text-align: left;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: medium;
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background-color: antiquewhite;
+  margin: 0;
+  padding-top: 88px;
+  background-color: var(--crema);
+  color: var(--texto);
+  font-family: var(--fuente-cuerpo);
 }
+
+/* ── HEADER ────────────────────────────────────────────── */
+
+header {
+  background-color: var(--vino);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid var(--dorado);
+}
+
+#titulo-articulo {
+  color: var(--crema);
+  font-family: var(--fuente-display);
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* ── CONTENIDO DEL ARTÍCULO ────────────────────────────── */
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 50px 25px 70px;
+}
+
+main > article {
+  background-color: #ffffff;
+  border-top: 4px solid var(--dorado);
+  border-radius: 4px;
+  padding: 40px 45px;
+  box-shadow: 0 4px 18px rgba(100, 19, 19, 0.1);
+}
+
+#imagen-articulo {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+#categoria-articulo {
+  display: inline-block;
+  color: var(--dorado);
+  text-transform: uppercase;
+  font-family: var(--fuente-cuerpo);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+/* El título real del artículo no es el del header (que es la marca
+   "Arteguay"), sino lo que mostramos como h3 dentro del artículo */
+#autor-articulo {
+  color: var(--vino);
+  font-family: var(--fuente-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.1rem;
+  margin: 0 0 30px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(100, 19, 19, 0.15);
+}
+
+#descripcion-articulo {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  text-align: left;
+  color: var(--texto);
+  white-space: pre-wrap;
+}
+
+/* ── BOTÓN VOLVER ──────────────────────────────────────── */
 
 .btn {
-  color: antiquewhite;
-  padding: 5px;
+  display: inline-block;
+  color: var(--vino);
   text-decoration: none;
-  margin-right: 20px;
-  background-color: rgb(100, 19, 19);
+  font-family: var(--fuente-display);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin-top: 30px;
+  border-bottom: 1px solid var(--dorado);
+  transition: color 0.2s ease;
 }
 
-p {
-  color: rgb(100, 19, 19);
-  text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
+.btn:hover {
+  color: var(--dorado);
 }
 
+/* ── RESPONSIVE ────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  #titulo-articulo {
+    font-size: 1.4rem;
+  }
+
+  main > article {
+    padding: 28px 22px;
+  }
+
+  #imagen-articulo {
+    max-height: 260px;
+  }
+}

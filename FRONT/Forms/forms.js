@@ -1,39 +1,49 @@
+const API_URL = "http://localhost:3000";
 
-const form = document.getElementById("formArticulo");
+document.addEventListener("DOMContentLoaded", () => {
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  const formArticulo = document.getElementById('formArticulo');
+  const mensaje = document.getElementById('mensaje');
 
-    const articulo = {
-    titulo: document.getElementById("titulo").value,
-    autor: document.getElementById("autor").value,
-    categoria: "Reseñas",
-    descripcion: document.getElementById("contenido").value
-  };
+  formArticulo.addEventListener('submit', async function (evento) {
+    evento.preventDefault(); // evita que la página se recargue
 
-console.log("Enviando artículo:", articulo);
+    const titulo    = document.getElementById('titulo').value.trim();
+    const categoria = document.getElementById('categoria').value.trim();
+    const autor     = document.getElementById('autor').value.trim();
+    const imagen    = document.getElementById('imagen').value.trim();
+    const fecha     = document.getElementById('fecha').value.trim();
+    const descripcion = document.getElementById('contenido').value.trim();
 
-  try {
-    const respuesta = await fetch("http://localhost:3000/articulos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(articulo)
-    });
+    if (!titulo || !categoria || !autor || !descripcion) {
+      mensaje.textContent = 'Completá los campos obligatorios: título, categoría, autor y contenido.';
+      return;
+    }
 
-console.log("Petición enviada");
+    const datos = { titulo, categoria, autor, imagen, fecha, descripcion };
 
-    const data = await respuesta.json();
+    try {
+      const respuesta = await fetch(`${API_URL}/articulos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
 
-    document.getElementById("mensaje").textContent =
-      "Artículo publicado correctamente";
+      const articulo = await respuesta.json();
 
-    console.log(data);
+      if (respuesta.ok) {
+        mensaje.textContent = 'Artículo publicado con éxito.';
+        formArticulo.reset();
+        // Si querés redirigir a la página del artículo, descomentá la línea de abajo:
+        // window.location.href = '../articulo-proyecto/articulo.html?id=' + articulo.id;
+      } else {
+        mensaje.textContent = articulo.error || 'Error al publicar el artículo.';
+      }
 
-    form.reset();
+    } catch (error) {
+      console.error('Error de red:', error);
+      mensaje.textContent = 'No se pudo conectar con el servidor.';
+    }
+  });
 
-  } catch (error) {
-    console.error(error);
-  }
 });
