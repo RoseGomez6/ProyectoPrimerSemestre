@@ -1,16 +1,37 @@
 [
   {
     "id": 1,
-    "titulo": "Identidades Visuales del Uruguay",
-    "autor": "Rosina Gómez",
-    "categoria": "Origenes del arte en Uruguay",
-    "descripcion": "Descripcion breve del artículo."
+    "titulo": "Identidades Visuales del uruguay",
+    "autor": "Rose Gómez",
+    "categoria": "ARTES VISUALES",
+    "descripcion": "aca comienza el articulo"
   },
   {
     "id": 2,
-    "titulo": "escritur",
-    "autor": "JUKLIET",
+    "titulo": "Evolucion de la Literatura Uruguaya",
+    "autor": "Julieta Falconi",
+    "categoria": "LITERATURA",
+    "descripcion": "aca comienza el articulo"
+  },
+  {
+    "id": 3,
+    "titulo": "Titulo del articulo",
+    "autor": "Luís Díaz",
+    "categoria": "MÚSICA",
+    "descripcion": "aca comienza el articulo"
+  },
+  {
+    "id": 4,
+    "titulo": "Titulo del articulo",
+    "autor": "Fernanda Quijano",
+    "categoria": "CANDOMBE",
+    "descripcion": "aca comienza el articulo"
+  },
+  {
+    "id": 5,
+    "titulo": "Arte Visuales",
+    "autor": "Rosina",
     "categoria": "Reseñas",
-    "descripcion": "fheqdfjl"
+    "descripcion": "bzdfsgsegv"
   }
 ]

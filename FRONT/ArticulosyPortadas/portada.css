@@ -4,11 +4,40 @@ h1 {
   font-family: Georgia, "Times New Roman", Times, serif;
   display: inline-block;
   font-size: xx-large;
+  padding: 20px;
+}
+
+h2 {
+  color: rgb(100, 19, 19);
+  text-align: center;
+}
+
+h3 {
+  font-size: larger;
+}
+
+p {
+  text-align: center;
 }
 
 header {
   background-color: rgb(100, 19, 19);
-  padding: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 80px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+body {
+    padding-top: 80px;
+    background-color: antiquewhite;
 }
 
 .linkarticulo {
@@ -18,26 +47,20 @@ header {
   margin-right: 20px;
 }
 
-.tarjeta {
+section {
   padding: 25px;
   display: flex;
   justify-content: center;
   gap: 20px;
-}
-.tarjeta img {
   width: 200px;
   height: auto;
+  border-radius: 40px;
+  display: block;
 }
 
 nav {
   text-align: right;
   display: inline-block;
-}
-
-.tarjeta img {
-  width: 30%;
-  border-radius: 10px;
-  display: block;
 }
 
 .card {
@@ -55,6 +78,11 @@ nav {
   margin-right: 20px;
 }
 
+.boton {
+  color: rgb(100, 19, 19);
+  font-size: large;
+}
+
 footer {
   text-align: center;
 }
@@ -62,12 +90,6 @@ footer {
 footer img {
   width: 100vw;
   height: auto;
-}
-
-#grid {
-  width: 10vw;
-  padding: 5px;
-  margin: 5px;
 }
 
 main {
