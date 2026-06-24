@@ -1,29 +1,119 @@
-const input = document.getElementById("mensaje");
-const boton = document.getElementById("enviar");
-const lista = document.getElementById("articulos");
+// Coordenadas de Montevideo
+const LAT = -34.9;
+const LON = -56.2;
+const CIUDAD = "Montevideo";
 
-// Muestra el array de palabras en la lista de la página
-function mostrarArticulos(articulos) {
-  console.log("Articulos del backend:", palabras);
-  lista.innerHTML = "";
-  articulos.forEach((articulos) => {
-    const item = document.createElement("li");
-    item.textContent = articulos;
-    lista.appendChild(item);
-  });
+// URL de la API — gratuita, sin API key
+const API_CLIMA = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true`;
+
+// Traduce el código numérico del clima a texto legible
+function descripcionClima(code) {
+  if (code === 0) return "☀️ Cielo despejado";
+  if (code <= 2)  return "⛅ Parcialmente nublado";
+  if (code === 3) return "☁️ Nublado";
+  if (code >= 51 && code <= 67) return "Lluvia";
+  if (code >= 71 && code <= 77) return "❄️ Nieve";
+  if (code >= 80 && code <= 82) return "Lluvias intermitentes";
+  if (code >= 95) return "⚡ Tormenta";
+  return "Condición desconocida";
 }
 
-// GET: trae el array de palabras del backend
+document.addEventListener("DOMContentLoaded", async () => {
+  const elCiudad   = document.getElementById("clima-ciudad");
+  const elTemp     = document.getElementById("clima-temp");
+  const elCondicion = document.getElementById("clima-condicion");
+
+  try {
+    const respuesta = await fetch(API_CLIMA);  // hace el GET a la API
+    const datos = await respuesta.json();       // convierte la respuesta a objeto JS
+
+    const { temperature, windspeed, weathercode } = datos.current_weather; // desestructura los datos
+
+    // Escribe los datos en el HTML
+    elCiudad.textContent    = CIUDAD;
+    elTemp.textContent      = `${temperature} °C`;
+    elCondicion.textContent = descripcionClima(weathercode);
+
+  } catch (error) {
+    console.error("Error al obtener el clima:", error);
+    elCiudad.textContent = "No se pudo cargar el clima."; // mensaje si no hay conexión
+  }
+});
+
+const API_URL = "http://localhost:3000";
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarArticulos();
+
+  // Actualiza automáticamente cada 3 segundos
+  setInterval(cargarArticulos, 3000);
+});
+
 async function cargarArticulos() {
-  const respuesta = await fetch("http://localhost:3000/articulos", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-  });
-  const datos = await respuesta.json();
-  mostrarArticulos(datos);
-}
+  try {
 
-// Al cargar la página -> muestra las palabras que ya están
-window.addEventListener("DOMContentLoaded", cargarArticulos);
+    const respuesta = await fetch(`${API_URL}/articulos`);
+    const articulos = await respuesta.json();
+
+    // Los más nuevos primero
+    articulos.reverse();
+
+    const contenedor = document.getElementById("lista-articulos");
+
+    // Limpia el contenedor antes de volver a dibujar
+    contenedor.innerHTML = "";
+
+    articulos.forEach((articulo, index) => {
+
+      const tarjeta = document.createElement("a");
+
+      tarjeta.href = `../articulo-proyecto/articulo.html?id=${articulo.id}`;
+
+      tarjeta.classList.add("article-card");
+      tarjeta.classList.add("article-link");
+
+      // Saca etiquetas HTML del contenido y lo acorta
+      const descripcionLimpia =
+        articulo.descripcion1
+          ? articulo.descripcion1
+              .replace(/<[^>]*>/g, "")
+              .substring(0, 150)
+          : "";
+
+      tarjeta.innerHTML = `
+        <a class="article-link"
+           href="../articulo-proyecto/articulo.html?id=${articulo.id}">
+
+          <span class="article-number">
+            ${String(index + 1).padStart(2, "0")}
+          </span>
+
+          <div class="article-category">
+            ${articulo.categoria || ""}
+          </div>
+
+          <h3 class="article-title">
+            ${articulo.titulo || ""}
+            <br>
+            <em>${articulo.subtitulo || ""}</em>
+          </h3>
+
+          <div class="article-rule"></div>
+
+          <p class="article-desc">
+            ${descripcionLimpia}...
+          </p>
+
+        </a>
+      `;
+
+      contenedor.appendChild(tarjeta);
+
+    });
+
+  } catch (error) {
+    console.error("Error al cargar artículos:", error);
+  }
+}
 
 

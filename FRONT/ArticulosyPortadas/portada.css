@@ -81,6 +81,7 @@ nav {
 .boton {
   color: rgb(100, 19, 19);
   font-size: large;
+  font-size: xx-large;
 }
 
 footer {
@@ -142,4 +143,30 @@ main {
   width: 300px;
   background-color: rgba(182, 56, 56, 0.116);
   border-radius: 15px;
+}
+
+#clima {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: rgb(100, 19, 19);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+#clima-temp {
+  font-weight: bold;
+  font-size: 15px;
+  color: var(--gold);
+}
+
+#clima-ciudad {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+#clima-condicion {
+  font-style: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

@@ -1,17 +1,20 @@
-// variables de entorno
-const fs = require("fs");
-
+// PRIMERA LINEA — cargar variables de entorno
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const http = require("http");
 const PORT = process.env.PORT || 3000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5500";
+const originesPermitidos = [
+  "http://localhost:5500",
+  "http://127.0.0.1:5500"
+];
+
 // ── MIDDLEWARES ──────────────────────────────────────────
-app.use(cors());
-app.use(express.json());
+app.use(cors({ origin: originesPermitidos }));
+app.use(express.json({ limit: '50mb' })); // El límite sube a 20mb para aceptar imágenes en Base64
+app.use("/img", express.static("img"));
 // ── DATOS ────────────────────────────────────────────────
+const fs = require("fs");
 
 const articulos = [
   {
@@ -47,113 +50,13 @@ const articulos = [
   },
 ];
 
-const articulo = http.createServer((req, res) => {
-  // Permite peticiones desde cualquier origen (CORS).
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // Petición "preflight" de CORS.
-  if (req.method === "OPTIONS") {
-    res.writeHead(204);
-    res.end();
-    return;
-  }
-
-  // --- Endpoint: GET /api/hola -> responde "hola mundo" ---
-  if (req.method === "GET" && req.url === "/articulos") {
-    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify(articulos));
-    return;
-  }
-
- // --- Endpoint: GET /api/palabras -> responde el array de palabras ---
-  if (req.method === "GET" && req.url === "/articulos") {
-    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify(articulos));
-    return;
-  }
-
-// --- Endpoint: POST /api/palabras -> agrega una palabra al mismo array ---
-  if (req.method === "POST" && req.url === "/articulos") {
-    let body = "";
-    req.on("data", (chunk) => (body += chunk));
-    req.on("end", () => {
-      let articulo = "";
-      try {
-        articulo = JSON.parse(body).articulo;
-      } catch (e) {
-        res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-        res.end(JSON.stringify({ error: "JSON inválido" }));
-        return;
-      }
-
-// Guarda la palabra recibida en el array que ya existe.
-      if (articulo) {
-        articulos.push(articulo);
-      }
-
-      console.log("Articulo agregado:", articulo, "-> array actual:", articulo);
-
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify(articulo));
-    });
-    return;
-  }
-
-   // --- Endpoint: POST /api/mensaje -> recibe el mensaje del input ---
-  if (req.method === "POST" && req.url === "/articulos") {
-    let body = "";
-    req.on("data", (chunk) => (body += chunk));
-    req.on("end", () => {
-      let mensajeRecibido = "";
-      try {
-        mensajeRecibido = JSON.parse(body).mensaje;
-      } catch (e) {
-        res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-        res.end(JSON.stringify({ error: "JSON inválido" }));
-        return;
-      }
-
-      console.log("Mensaje recibido del frontend:", mensajeRecibido);
-
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(
-        JSON.stringify({
-          ok: true,
-          recibido: mensajeRecibido,
-        })
-      );
-    });
-    return;
-  }
-
-   // --- Archivos estáticos (index.html, script.js) ---
-  const articulo = req.url === "/" ? "/portada.html" : req.url;
-  const rutaArticulo = path.join(__dirname, archivo);
-
-  fs.readFile(rutaArchivo, (err, contenido) => {
-    if (err) {
-      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      res.end("404 - No encontrado");
-      return;
-    }
-    const tipos = { ".html": "text/html", ".js": "text/javascript" };
-    const tipo = tipos[path.extname(rutaArchivo)] || "text/plain";
-    res.writeHead(200, { "Content-Type": tipo + "; charset=utf-8" });
-    res.end(contenido);
-  });
-});
-
-server.listen(PORT, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
-});
-
 // ── RUTAS ────────────────────────────────────────────────
+
 // GET /articulos → devuelve todos los artículos
 app.get("/articulos", (req, res) => {
   res.json(articulos);
 });
+
 // GET /articulos/:id → devuelve un artículo por id
 app.get("/articulos/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -163,35 +66,45 @@ app.get("/articulos/:id", (req, res) => {
   }
   res.json(articulo);
 });
+
 // POST /articulos → crea un artículo nuevo
 app.post("/articulos", (req, res) => {
-  const { titulo, autor, categoria, descripcion } = req.body;
+  const { titulo, subtitulo, autor, categoria, fecha, descripcion1, descripcion2, portada, galeria } = req.body;
 
-  if (!titulo || !autor || !descripcion) {
+  if (!titulo || !autor || !descripcion1) {
     return res.status(400).json({
-      error: "Los campos título, autor y descripción son obligatorios",
+      error: "Los campos título, autor y contenido son obligatorios",
     });
   }
+
   const nuevo = {
     id: articulos.length + 1,
     titulo,
+    subtitulo: subtitulo || "",
     autor,
     categoria: categoria || "Sin categoría",
-    descripcion,
+    fecha: fecha || "",
+    descripcion1,
+    descripcion2: descripcion2 || "",
+    portada: portada || "",
+    galeria: galeria || []
   };
+
   articulos.push(nuevo);
-  fs.writeFileSync("articulos.json", JSON.stringify(articulos, null, 2));
   res.status(201).json(nuevo);
 });
+
 // ── 404 ──────────────────────────────────────────────────
 app.use((req, res) => {
   res.status(404).json({ error: "Ruta no encontrada" });
 });
+
 // ── ERROR HANDLER ─────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err.message);
   res.status(500).json({ error: "Error interno del servidor" });
 });
+
 // ── INICIAR SERVIDOR ──────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

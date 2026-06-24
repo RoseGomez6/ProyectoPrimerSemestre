@@ -1,3 +1,4 @@
+
 const form = document.getElementById("formArticulo");
 
 form.addEventListener("submit", async (e) => {
@@ -36,4 +37,3 @@ console.log("Petición enviada");
     console.error(error);
   }
 });
-
