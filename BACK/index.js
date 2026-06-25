@@ -48,7 +48,7 @@ Lo que ellos representan al pintar es parte de lo que en nuestra nación ha prev
     titulo: "Evolucion de la Literatura Uruguaya",
     autor: "Julieta Falconi",
     categoria: "LITERATURA",
-    descripcion: "aca comienza el articulo",
+    descripcion: ``,
     imagen: "img/vilariño.jpg",
   },
 
@@ -57,7 +57,7 @@ Lo que ellos representan al pintar es parte de lo que en nuestra nación ha prev
     titulo: "Música Uruguaya como expresión de identidad cultural",
     autor: "Luís Díaz",
     categoria: "MÚSICA",
-    descripcion: "aca comienza el articulo",
+    descripcion: ``,
     imagen: "img/drexler2.jpg",
   },
 
@@ -66,7 +66,7 @@ Lo que ellos representan al pintar es parte de lo que en nuestra nación ha prev
     titulo: "Titulo del articulo",
     autor: "Fernanda Quijano",
     categoria: "CANDOMBE",
-    descripcion: "aca comienza el articulo",
+    descripcion: ``,
     imagen: "img/candombe.jpg",
   },
 ];
