@@ -8,20 +8,22 @@ const originesPermitidos = [
   "http://localhost:5500",
   "http://127.0.0.1:5500",
   "http://localhost:5501",
-  "http://127.0.0.1:5501"
+  "http://127.0.0.1:5501",
 ];
 
 // ── MIDDLEWARES ──────────────────────────────────────────
-app.use(cors({
-  origin: function (origin, callback) {
-    // permite peticiones sin "origin" (como Postman o curl) y las de la lista
-    if (!origin || originesPermitidos.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("No permitido por CORS: " + origin));
-    }
-  }
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // permite peticiones sin "origin" (como Postman o curl) y las de la lista
+      if (!origin || originesPermitidos.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("No permitido por CORS: " + origin));
+      }
+    },
+  }),
+);
 app.use(express.json());
 // ── DATOS ────────────────────────────────────────────────
 // Reemplazar con los artículos reales del grupo
@@ -48,7 +50,29 @@ Lo que ellos representan al pintar es parte de lo que en nuestra nación ha prev
     titulo: "Evolucion de la Literatura Uruguaya",
     autor: "Julieta Falconi",
     categoria: "LITERATURA",
-    descripcion: ``,
+    descripcion: `
+En este texto se analizan las principales corrientes literarias que marcaron los inicios de la literatura uruguaya y contribuyeron a la construcción de una identidad nacional.
+
+Los orígenes de la literatura uruguaya se remontan a comienzos del siglo XIX. Uno de los primeros géneros literarios que surgieron en nuestro país fue la poesía gauchesca con Bartolomé Hidalgo como referente, autor de los famosos cielitos que relataban lo que sucedía en la época. Este género utiliza el lenguaje y las costumbres de los gauchos para expresar ideas políticas, sociales y culturales. 
+
+Por otro lado, surgió el Clasicismo, movimiento de origen europeo donde los escritores clásicos consideraban que el arte debía seguir reglas precisas y transmitir enseñanzas morales. En Uruguay y en el Río de la Plata, el clasicismo tuvo influencia durante las primeras décadas del siglo XIX. Los autores imitaban modelos europeos y utilizaban un lenguaje cuidado y formal. Sus obras tratan temas patrióticos, históricos y educativos.
+
+A su vez llega el romanticismo a Uruguay hacia 1838, influenciado por escritores argentinos exiliados que se establecieron en Montevideo y Colonia del Sacramento. Este movimiento literario se caracterizó por exaltar los sentimientos, la libertad, el patriotismo y la identidad nacional. Su primer representante uruguayo fue Adolfo Berro, y más tarde se destacaron autores como Juan Zorrilla de San Martín.  Los escritores románticos eligieron temas propios de América, incorporando personajes como el gaucho y el indígena, así como paisajes característicos y promovieron una mayor libertad en la forma de escribir. 
+
+El Realismo fue uno de los movimientos literarios más importantes del siglo XIX y tal y como señala el texto “El realismo y el romanticismo como movimientos literarios” de Marisa Guzmán Polita, el Realismo fue un movimiento literario y artístico que surgió como una reacción al Romanticismo. Mientras los románticos privilegiaban los sentimientos y la subjetividad, los realistas buscaron representar la realidad de manera objetiva y fiel. Uno de los principales representantes del Realismo fue Eduardo Acevedo Díaz que fue considerado una figura fundacional de la narrativa nacional. Su obra combinó la reconstrucción literaria del pasado con una reflexión sobre la identidad uruguaya, lo que lo convirtió en uno de los autores más influyentes de la literatura del país. 
+
+A continuación surgió el modernismo, fue un movimiento literario que surgió a fines del siglo XIX y principios del siglo XX,  tuvo entre sus más importantes representantes a Rubén Darío, José Martí y José Enrique Rodó. El Modernismo fue importante porque marcó una renovación de la literatura uruguaya y sirvió de puente entre los movimientos del siglo XIX, como el Romanticismo y el Realismo y las corrientes literarias más modernas. Delmira Agustini fue una poeta de nuestro país perteneciente al Modernismo. Su obra se caracterizó por expresar sentimientos intensos, especialmente el amor, la pasión, el deseo y la muerte, con un lenguaje musical, simbólico y muy cuidado. 
+
+Como respuesta a los cambios culturales y artísticos del siglo XX, surgió la vanguardia, un movimiento que buscó romper con las formas tradicionales de hacer arte y literatura, promoviendo la innovación y la experimentación. En el país esta comenzó a consolidarse alrededor de 1927, impulsada por obras de inspiración futurista y por escritores interesados en experimentar con nuevos recursos literarios. A diferencia de las vanguardias europeas, en Uruguay esta renovación convivió con la valoración de la identidad nacional y las raíces criollas. La revista La Pluma (1927-1931) fue el principal espacio de difusión de estas nuevas ideas, promoviendo un arte moderno, abierto a las corrientes internacionales y, al mismo tiempo, comprometido con una identidad cultural americana. Su desaparición en 1931 marcó el fin de una de las etapas más importantes de la vanguardia uruguaya.
+
+A mediados del siglo XX, la literatura uruguaya vivió una etapa de gran desarrollo con la aparición de la Generación del 45. Este grupo de escritores, poetas y críticos renovó la producción literaria del país mediante una escritura rigurosa, una mirada crítica sobre la realidad y una constante búsqueda de excelencia artística. Su influencia convirtió a esta generación en una de las más importantes de la historia de la literatura uruguaya. Dentro de la Generación, Idea Vilariño y Juan Carlos Onetti fueron dos de sus figuras más representativas. Ambos compartieron el rigor literario y la actitud crítica que caracterizaron al movimiento, aunque desarrollaron estilos muy diferentes. Vilariño se destacó por una poesía breve, intensa y de gran profundidad emocional, centrada en temas como el amor, la soledad, la muerte y el paso del tiempo. Onetti, en cambio, renovó la narrativa con novelas y cuentos de personajes complejos, ambientes opresivos y una visión pesimista de la existencia. 
+
+Por último  tenemos la literatura de la dictadura, un período marcado por la censura, la persecución política y el exilio. En este contexto, la literatura se convirtió en una forma de resistencia y denuncia. Muchos escritores fueron censurados, encarcelados o debieron abandonar el país, por lo que recurrieron a símbolos y metáforas para expresar sus críticas al régimen. Entre los autores más representativos se encuentran Mario Benedetti, Eduardo Galeano, Cristina Peri Rossi e Idea Vilariño. Tras el regreso de la democracia, muchas obras se enfocaron en recuperar la memoria de ese período y reflexionar sobre sus consecuencias. 
+
+La evolución de la literatura uruguaya muestra cómo cada movimiento reflejó los conflictos, valores y preocupaciones de su época, contribuyendo a la construcción de una identidad nacional. Aunque muchas corrientes tuvieron origen europeo, los escritores uruguayos las adaptaron a su propia realidad, incorporando temas, personajes y paisajes locales. Esto demuestra que la literatura no es solo una expresión artística, sino también una herramienta para comprender la historia, la cultura y las transformaciones de la sociedad. Además, estas corrientes no solo representan la identidad uruguaya, sino que también la cuestionan y la redefinen constantemente, mostrando que la idea de nación es una construcción cultural en permanente cambio.
+
+
+`,
     imagen: "img/vilariño.jpg",
   },
 
@@ -73,48 +97,48 @@ Lo que ellos representan al pintar es parte de lo que en nuestra nación ha prev
 // ── RUTAS ────────────────────────────────────────────────
 // GET /articulos → devuelve todos los artículos
 app.get("/articulos", (req, res) => {
-res.json(articulos);
+  res.json(articulos);
 });
 // GET /articulos/:id → devuelve un artículo por id
 app.get("/articulos/:id", (req, res) => {
-const id = Number(req.params.id);
-const articulo = articulos.find((a) => a.id === id);
-if (!articulo) {
-return res.status(404).json({ error: "Artículo no encontrado" });
-}
-res.json(articulo);
+  const id = Number(req.params.id);
+  const articulo = articulos.find((a) => a.id === id);
+  if (!articulo) {
+    return res.status(404).json({ error: "Artículo no encontrado" });
+  }
+  res.json(articulo);
 });
 // POST /articulos → crea un artículo nuevo
 app.post("/articulos", (req, res) => {
-const { titulo, autor, categoria, descripcion, imagen, fecha } = req.body;
+  const { titulo, autor, categoria, descripcion, imagen, fecha } = req.body;
 
-if (!titulo || !autor || !descripcion) {
-return res.status(400).json({
-error: "Los campos título, autor y descripción son obligatorios",
-});
-}
-const nuevo = {
-id: articulos.length + 1,
-titulo,
-autor,
-categoria: categoria || "Sin categoría",
-descripcion,
-imagen: imagen || "",
-fecha: fecha || "",
-};
-articulos.push(nuevo);
-res.status(201).json(nuevo);
+  if (!titulo || !autor || !descripcion) {
+    return res.status(400).json({
+      error: "Los campos título, autor y descripción son obligatorios",
+    });
+  }
+  const nuevo = {
+    id: articulos.length + 1,
+    titulo,
+    autor,
+    categoria: categoria || "Sin categoría",
+    descripcion,
+    imagen: imagen || "",
+    fecha: fecha || "",
+  };
+  articulos.push(nuevo);
+  res.status(201).json(nuevo);
 });
 // ── 404 ──────────────────────────────────────────────────
 app.use((req, res) => {
-res.status(404).json({ error: "Ruta no encontrada" });
+  res.status(404).json({ error: "Ruta no encontrada" });
 });
 // ── ERROR HANDLER ─────────────────────────────────────────
 app.use((err, req, res, next) => {
-console.error(err.message);
-res.status(500).json({ error: "Error interno del servidor" });
+  console.error(err.message);
+  res.status(500).json({ error: "Error interno del servidor" });
 });
 // ── INICIAR SERVIDOR ──────────────────────────────────────
 app.listen(PORT, () => {
-console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
