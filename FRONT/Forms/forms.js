@@ -1,6 +1,7 @@
 const API_URL = "http://localhost:3000"; // puerto del back
 
 document.addEventListener("DOMContentLoaded", () => {
+  // espera que el html cargue
   const formArticulo = document.getElementById("formArticulo");
   const mensaje = document.getElementById("mensaje");
 
