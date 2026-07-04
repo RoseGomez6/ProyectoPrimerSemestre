@@ -125,3 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Actualiza la lista de artículos automáticamente cada 3 segundos
   setInterval(cargarArticulos, 3000);
 });
+
+// 3) Cerrar sesion: borramos lo guardado y volvemos al login.
+  document.getElementById("btnSalir").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    window.location.href = "login.html";
+  });

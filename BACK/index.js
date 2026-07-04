@@ -11,6 +11,18 @@ const originesPermitidos = [
   "http://127.0.0.1:5501",
 ];
 
+// Permite leer req.body cuando llega JSON.
+app.use(express.json());
+
+// --- "Base de datos" en memoria ---------------------------------
+// En un proyecto real esto vive en una base de datos y las
+// contrasenas van HASHEADAS (bcrypt), nunca en texto plano.
+const usuarios = [
+  { id: 1, usuario: "admin", password: "1234", nombre: "Administrador" },
+  { id: 2, usuario: "rose", password: "rose123", nombre: "Rose Gomez" },
+];
+
+
 // ── MIDDLEWARES ──────────────────────────────────────────
 app.use(
   cors({
@@ -111,6 +123,54 @@ En conclusión, el candombe constituye una de las expresiones culturales más si
   },
 ];
 // ── RUTAS ────────────────────────────────────────────────
+// Ping de vida, util para probar que el server esta arriba.
+app.get("/", (req, res) => {
+  res.json({ ok: true, mensaje: "Backend de login funcionando" });
+});
+
+// POST /login  -> valida usuario y contrasena.
+app.post("/login", (req, res) => {
+  const { usuario, password } = req.body;
+
+  // Validacion de que llegaron los datos.
+  if (!usuario || !password) {
+    return res
+      .status(400)
+      .json({ ok: false, mensaje: "Faltan usuario o contrasena" });
+  }
+
+  // Buscamos el usuario que coincida.
+  const encontrado = usuarios.find(
+    (u) => u.usuario === usuario && u.password === password
+  );
+
+  if (!encontrado) {
+    return res
+      .status(401)
+      .json({ ok: false, mensaje: "Usuario o contrasena incorrectos" });
+  }
+
+  // Login correcto. Devolvemos un "token" simulado y datos publicos.
+  // (En un proyecto real seria un JWT firmado.)
+  const token = "token-simulado-" + encontrado.id;
+
+  return res.json({
+    ok: true,
+    mensaje: "Login correcto",
+    token,
+    usuario: {
+      id: encontrado.id,
+      usuario: encontrado.usuario,
+      nombre: encontrado.nombre,
+    },
+  });
+});
+
+// --- Arranque ----------------------------------------------------
+app.listen(PORT, () => {
+  console.log(`Backend escuchando en http://localhost:${PORT}`);
+});
+
 // GET /articulos → devuelve todos los artículos
 app.get("/articulos", (req, res) => {
   res.json(articulos);

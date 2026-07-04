@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caja-login {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 340px;
+}
+
+.caja-login h1 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+  margin-top: 8px;
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0061fc;
+}
+
+button {
+  margin-top: 18px;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #0061fc;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #004fcc;
+}
+
+.mensaje {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+
+.mensaje.error {
+  color: #d32f2f;
+}
+
+.mensaje.ok {
+  color: #2e7d32;
+}
+
+.pista {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  color: #888;
+}

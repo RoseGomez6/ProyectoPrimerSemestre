@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagina principal</title>
+    <link rel="stylesheet" href="principal.css" />
+  </head>
+  <body>
+    <!-- El JS revisa localStorage ANTES de mostrar nada.
+         Si no hay sesion, redirige al login. -->
+    <header>
+      <h1>Pagina principal</h1>
+      <button id="btnSalir">Cerrar sesion</button>
+    </header>
+
+    <main>
+      <p id="bienvenida">Cargando...</p>
+      <p class="texto">
+        Solo podes ver esta pagina si iniciaste sesion. Si borras el
+        localStorage o cerras sesion, te devuelve al login.
+      </p>
+    </main>
+
+    <script src="principal.js"></script>
+  </body>
+</html>
