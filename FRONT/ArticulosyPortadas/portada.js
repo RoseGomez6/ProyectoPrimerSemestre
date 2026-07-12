@@ -11,7 +11,7 @@ const API_CLIMA = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longit
 // Traduce el código numérico del clima a texto legible
 function descripcionClima(code) {
   if (code === 0) return "☀️ Cielo despejado";
-  if (code <= 2)  return "⛅ Parcialmente nublado";
+  if (code <= 2) return "⛅ Parcialmente nublado";
   if (code === 3) return "☁️ Nublado";
   if (code >= 51 && code <= 67) return "Lluvia";
   if (code >= 71 && code <= 77) return "❄️ Nieve";
@@ -21,21 +21,20 @@ function descripcionClima(code) {
 }
 
 async function cargarClima() {
-  const elCiudad    = document.getElementById("clima-ciudad");
-  const elTemp      = document.getElementById("clima-temp");
+  const elCiudad = document.getElementById("clima-ciudad");
+  const elTemp = document.getElementById("clima-temp");
   const elCondicion = document.getElementById("clima-condicion");
 
   try {
-    const respuesta = await fetch(API_CLIMA);  // hace el GET a la API
-    const datos = await respuesta.json();       // convierte la respuesta a objeto JS
+    const respuesta = await fetch(API_CLIMA); // hace el GET a la API
+    const datos = await respuesta.json(); // convierte la respuesta a objeto JS
 
     const { temperature, windspeed, weathercode } = datos.current_weather; // desestructura los datos
 
     // Escribe los datos en el HTML
-    elCiudad.textContent    = CIUDAD;
-    elTemp.textContent      = `${temperature} °C`;
+    elCiudad.textContent = CIUDAD;
+    elTemp.textContent = `${temperature} °C`;
     elCondicion.textContent = descripcionClima(weathercode);
-
   } catch (error) {
     console.error("Error al obtener el clima:", error);
     elCiudad.textContent = "No se pudo cargar el clima."; // mensaje si no hay conexión
@@ -66,7 +65,6 @@ async function cargarArticulos() {
       const tarjeta = crearTarjeta(articulo);
       contenedor.appendChild(tarjeta);
     });
-
   } catch (error) {
     console.error("Error de red:", error);
     contenedor.innerHTML = "<p>No se pudo conectar con el servidor.</p>";
@@ -116,6 +114,14 @@ function crearTarjeta(articulo) {
   return article;
 }
 
+// 1) Chequeo de sesion. Se ejecuta al cargar el script.
+const token = localStorage.getItem("token");
+
+if (!token) {
+  // No hay sesion -> fuera de aca, al login.
+  window.location.href = "login.html";
+}
+
 // ── INICIO ───────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -127,8 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 3) Cerrar sesion: borramos lo guardado y volvemos al login.
-  document.getElementById("btnSalir").addEventListener("click", () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    window.location.href = "login.html";
-  });
+document.getElementById("btnSalir").addEventListener("click", () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("usuario");
+  window.location.href = "login.html";
+});
