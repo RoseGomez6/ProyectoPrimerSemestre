@@ -22,7 +22,6 @@ const usuarios = [
   { id: 2, usuario: "rose", password: "rose123", nombre: "Rose Gomez" },
 ];
 
-
 // ── MIDDLEWARES ──────────────────────────────────────────
 app.use(
   cors({
@@ -107,7 +106,7 @@ Esto nos obliga a hacernos una pregunta importante ¿puede existir una identidad
 
   {
     id: 4,
-    titulo: "Titulo del articulo",
+    titulo: "El Candombe y su decendencia",
     autor: "Fernanda Quijano",
     categoria: "CANDOMBE",
     descripcion: `El candombe es una de las expresiones culturales más representativas del Uruguay y constituye un legado fundamental de las comunidades afrodescendientes. Su origen se encuentra estrechamente relacionado con la llegada de personas africanas esclavizadas al territorio rioplatense durante los siglos XVIII y XIX. A pesar de las condiciones de opresión y exclusión a las que fueron sometidas, estas comunidades lograron preservar gran parte de sus tradiciones culturales, convirtiendo la música y la danza en formas de expresión, resistencia e identidad.
@@ -141,7 +140,7 @@ app.post("/login", (req, res) => {
 
   // Buscamos el usuario que coincida.
   const encontrado = usuarios.find(
-    (u) => u.usuario === usuario && u.password === password
+    (u) => u.usuario === usuario && u.password === password,
   );
 
   if (!encontrado) {
